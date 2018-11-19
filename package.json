@@ -1,0 +1,44 @@
+{
+  "name": "raw-js-components",
+  "version": "1.0.0",
+  "description": "A practical example of components",
+  "scripts": {
+    "format:fix": "prettier --config ./.pretierrc --write \"{src/**/*.js,tests/**/*.js}\"",
+    "start": "yarn gulp",
+    "test": "yarn karma start"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*{.js}": [
+      "yarn run format:fix",
+      "git add"
+    ]
+  },
+  "keywords": [
+    "js",
+    "javascript",
+    "components",
+    "es5"
+  ],
+  "author": "Ricardo Roman",
+  "license": "MIT",
+  "devDependencies": {
+    "browser-sync": "^2.26.3",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-uglify": "^3.0.1",
+    "husky": "^1.1.4",
+    "jshint": "^2.9.6",
+    "karma": "^3.1.1",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-jasmine": "^2.0.1",
+    "lint-staged": "^8.0.5",
+    "plugin": "^0.3.3",
+    "prettier": "^1.15.2"
+  }
+}
