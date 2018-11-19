@@ -2,28 +2,78 @@ var gulp = require('gulp');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var sourcemaps = require('gulp-sourcemaps');
-var browserSync = require('browser-sync');
+var sass = require('gulp-sass');
+var autoprefixer = require('gulp-autoprefixer');
+var rename = require('gulp-rename');
+var cleanCSS = require('gulp-clean-css');
+var del = require('del');
 
-var files = ['./src/components/**/*.js', './src/app.js'];
+var browserSync = require('browser-sync').create();
 
-gulp.task('serve', ['build'], function() {
+var config = {
+  scripts: {
+    source: ['./src/components/**/*.js', './src/app.js'],
+    dest: 'public/assets/js',
+    del: ['public/assets/js/**/*.*', '!public/assets/js/.gitkeep'],
+    concat: 'scripts.min.js',
+    sourcemaps: './'
+  },
+  styles: {
+    source: ['./styles/**/*.scss'],
+    dest: 'public/assets/css',
+    del: ['public/assets/css/**/*.*', '!public/assets/js/.gitkeep'],
+    rename: {
+      suffix: '.min'
+    },
+    autoprefixer: {
+      browsers: ['last 2 versions'],
+      cascade: false
+    },
+    sourcemaps: './'
+  }
+};
+
+gulp.task('clean-scripts', function(){
+  return del(config.scripts.del);
+});
+
+gulp.task('clean-styles', function(){
+  return del(config.styles.del);
+});
+
+gulp.task('scripts', ['clean-scripts'], function() {
+  return gulp
+    .src(config.scripts.source)
+    .pipe(sourcemaps.init())
+    .pipe(concat(config.scripts.concat))
+    .pipe(uglify())
+    .pipe(sourcemaps.write(config.scripts.sourcemaps))
+    .pipe(gulp.dest(config.scripts.dest))
+    .pipe(browserSync.stream());
+});
+
+gulp.task('styles', ['clean-styles'], function() {
+  return gulp
+    .src(config.styles.source)
+    .pipe(sass())
+    .pipe(sourcemaps.init())
+    .pipe(autoprefixer(config.styles.autoprefixer))
+    .pipe(cleanCSS())
+    .pipe(rename(config.styles.rename))
+    .pipe(sourcemaps.write(config.styles.sourcemaps))
+    .pipe(gulp.dest(config.styles.dest))
+    .pipe(browserSync.stream());
+});
+
+gulp.task('serve', ['scripts', 'styles'], function() {
   browserSync.init({
     server: 'public',
   });
 
-  gulp.watch(files, ['build']).on('change', browserSync.reload);
-  gulp.watch('public/index.html').on('change', browserSync.reload);
-});
+  gulp.watch(config.scripts.source, ['scripts']);
+  gulp.watch(config.styles.source, ['styles']);
 
-gulp.task('build', function() {
-  return gulp
-    .src(files)
-    .pipe(sourcemaps.init())
-    .pipe(concat('bundle.min.js'))
-    .pipe(gulp.dest('public/assets'))
-    .pipe(uglify())
-    .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest('public/assets'));
+  gulp.watch('public/*.html').on('change', browserSync.reload);
 });
 
 gulp.task('default', ['serve']);

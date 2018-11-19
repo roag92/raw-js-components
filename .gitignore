@@ -1,4 +1,6 @@
 node_modules
 yarn.lock
 *.log
-public/assets/bundle*
+
+public/assets/css/*css*
+public/assets/js/*js*
