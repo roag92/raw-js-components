@@ -1,6 +1,10 @@
 (function() {
   'use stricts';
 
-  console.log('Hello App');
+  var serachElement = document.getElementById('search');
+
+  var searchComponent = new SearchComponent(serachElement);
+
+  console.log(searchComponent);
   
 })();

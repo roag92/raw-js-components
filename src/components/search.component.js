@@ -1,7 +1,7 @@
-function Search() {
-  console.log('SearchComponent');
+function SearchComponent(element) {
+  this.element = element;
 }
 
-Search.prototype.search = function(str) {
+SearchComponent.prototype.search = function(str) {
   console.log(str);
 };
