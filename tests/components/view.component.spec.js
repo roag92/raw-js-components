@@ -12,12 +12,13 @@ describe('ViewComponent should work', function() {
   });
 
   it('should instance ViewComponent', function() {
+    spyOn(EventService, 'subscribe');
+
     var viewComponent = new ViewComponent(element);
 
     expect(viewComponent.element).toEqual(element);
     expect(viewComponent.item).toBeNull();
-
-    element.remove();
+    expect(EventService.subscribe).toHaveBeenCalledTimes(2);
   });
 
   it('should call setItem method', function() {
@@ -37,9 +38,12 @@ describe('ViewComponent should work', function() {
       },
     };
 
+    spyOn(viewComponent, 'reset');
+
     viewComponent.setItem(expectedData);
 
     expect(viewComponent.item).toEqual(expectedData);
+    expect(viewComponent.reset).toHaveBeenCalled();
   });
 
   it('should call reset method', function() {

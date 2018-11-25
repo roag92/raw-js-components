@@ -2,8 +2,6 @@ describe('ListComponent should work', function() {
   var element;
 
   beforeEach(function() {
-    spyOn(window, 'ViewComponent');
-
     document.body.append(document.createElement('div'));
 
     element = document.body.querySelector('div');
@@ -14,26 +12,23 @@ describe('ListComponent should work', function() {
   });
 
   it('should instance ListComponent', function() {
-    var listComponent, viewComponent;
+    var listComponent;
 
-    viewComponent = new ViewComponent();
-    listComponent = new ListComponent(element, viewComponent);
+    spyOn(EventService, 'subscribe');
+
+    listComponent = new ListComponent(element);
 
     expect(listComponent.element).toEqual(element);
-    expect(listComponent.viewComponent).toEqual(viewComponent);
     expect(listComponent.data).toEqual([]);
-
-    element.remove();
+    expect(EventService.subscribe).toHaveBeenCalled();
   });
 
   it('should call setData method', function() {
-    var viewComponent, listComponent, expectedData;
+    var listComponent, expectedData;
 
-    viewComponent = new ViewComponent();
+    spyOn(EventService, 'emit');
 
-    viewComponent.reset = sinon.spy();
-
-    listComponent = new ListComponent(element, viewComponent);
+    listComponent = new ListComponent(element);
 
     expectedData = [
       {
@@ -54,8 +49,7 @@ describe('ListComponent should work', function() {
     listComponent.setData(expectedData);
 
     expect(listComponent.data).toEqual(expectedData);
-
-    sinon.assert.calledOnce(viewComponent.reset);
+    expect(EventService.emit).toHaveBeenCalled();
   });
 });
 
@@ -68,23 +62,5 @@ describe('ListComponent should not work', function() {
     expect(firstArgumentFail).toThrow(
       'First argument must be an instance of HTMLElement'
     );
-  });
-
-  it('should throw invalid second argument instance of ViewComponent', function() {
-    var element, secondArgumentFail;
-
-    document.body.append(document.createElement('div'));
-
-    element = document.body.querySelector('div');
-
-    secondArgumentFail = function() {
-      new ListComponent(element, 1);
-    };
-
-    expect(secondArgumentFail).toThrow(
-      'Second argument must be an instance of ViewComponent'
-    );
-
-    element.remove();
   });
 });
