@@ -1,66 +1,70 @@
 describe('ListComponent should work', function() {
-    var element;
+  var element;
 
-    beforeEach(function() {
-        spyOn(window, 'ViewComponent');
+  beforeEach(function() {
+    spyOn(window, 'ViewComponent');
 
-        document.body.append(document.createElement('div'));
+    document.body.append(document.createElement('div'));
 
-        element = document.body.querySelector('div');
-    });
+    element = document.body.querySelector('div');
+  });
 
-    afterEach(function() {
-        element.remove();
-    });
+  afterEach(function() {
+    element.remove();
+  });
 
-    it('instance ListComponent', function() {
-        var listComponent, viewComponent;
-        
-        viewComponent = new ViewComponent();
-        listComponent = new ListComponent(element, viewComponent);
+  it('instance ListComponent', function() {
+    var listComponent, viewComponent;
 
-        expect(listComponent.element).toEqual(element);
-        expect(listComponent.viewComponent).toEqual(viewComponent);
-        expect(listComponent.data).toEqual([]);
+    viewComponent = new ViewComponent();
+    listComponent = new ListComponent(element, viewComponent);
 
-        element.remove();
-    });
+    expect(listComponent.element).toEqual(element);
+    expect(listComponent.viewComponent).toEqual(viewComponent);
+    expect(listComponent.data).toEqual([]);
 
-    it('call setData method', function() {
-        var listComponent, expectedData;
-        
-        listComponent = new ListComponent(element, new ViewComponent());
+    element.remove();
+  });
 
-        expectedData = [1, 2, 3];
+  it('call setData method', function() {
+    var listComponent, expectedData;
 
-        listComponent.setData(expectedData);
+    listComponent = new ListComponent(element, new ViewComponent());
 
-        expect(listComponent.data).toEqual(expectedData);
-    });
+    expectedData = [1, 2, 3];
+
+    listComponent.setData(expectedData);
+
+    expect(listComponent.data).toEqual(expectedData);
+  });
 });
 
 describe('ListComponent should not work', function() {
-    it('throw invalid first argument instance of HTMLElement', function() {
-        var firstArgumentFail = function() { 
-            new ListComponent(1);
-        };
+  it('throw invalid first argument instance of HTMLElement', function() {
+    var firstArgumentFail = function() {
+      new ListComponent(1);
+    };
 
-        expect(firstArgumentFail).toThrow('First argument must be an instance of HTMLElement');
-    });
+    expect(firstArgumentFail).toThrow(
+      'First argument must be an instance of HTMLElement'
+    );
+  });
 
-    it('throw invalid second argument instance of ViewComponent', function() {
-        var element, secondArgumentFail;
-        
-        document.body.append(document.createElement('div'));
+  it('throw invalid second argument instance of ViewComponent', function() {
+    var element, secondArgumentFail;
 
-        element = document.body.querySelector('div');
+    document.body.append(document.createElement('div'));
 
-        secondArgumentFail = function() { 
-            new ListComponent(element, 1);
-        };
+    element = document.body.querySelector('div');
 
-        expect(secondArgumentFail).toThrow('Second argument must be an instance of ViewComponent');
+    secondArgumentFail = function() {
+      new ListComponent(element, 1);
+    };
 
-        element.remove();
-    });
+    expect(secondArgumentFail).toThrow(
+      'Second argument must be an instance of ViewComponent'
+    );
+
+    element.remove();
+  });
 });

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A practical example of components",
   "scripts": {
-    "format:fix": "prettier --config ./.pretierrc --write \"{src/**/*.js,tests/**/*.js}\"",
+    "format:fix": "prettier --config ./.pretierrc --write \"{src/**/*.js,tests/**/*.js,public/index.html,styles/**/*.scss}\"",
     "start": "yarn gulp",
     "test": "yarn karma start"
   },
@@ -13,7 +13,7 @@
     }
   },
   "lint-staged": {
-    "src/**/*{.js}": [
+    "*.{js|html,scss}": [
       "yarn run format:fix",
       "git add"
     ]

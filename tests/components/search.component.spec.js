@@ -1,72 +1,76 @@
 describe('SearchComponent should work', function() {
-    it('instance SearchComponent', function() {
-        var div, element, listComponent, searchComponent;
+  it('instance SearchComponent', function() {
+    var div, element, listComponent, searchComponent;
 
-        spyOn(window, 'ListComponent');
+    spyOn(window, 'ListComponent');
 
-        div = document.createElement('div');
+    div = document.createElement('div');
 
-        div.append(document.createElement('form'));
+    div.append(document.createElement('form'));
 
-        document.body.append(div);
+    document.body.append(div);
 
-        element = document.body.querySelector('div');
+    element = document.body.querySelector('div');
 
-        listComponent = new ListComponent();
-        searchComponent = new SearchComponent(element, listComponent);
+    listComponent = new ListComponent();
+    searchComponent = new SearchComponent(element, listComponent);
 
-        expect(searchComponent.form).toBeTruthy();
-        expect(searchComponent.form.onsubmit).toBeTruthy();
-        expect(searchComponent.listComponent).toEqual(listComponent);
+    expect(searchComponent.form).toBeTruthy();
+    expect(searchComponent.form.onsubmit).toBeTruthy();
+    expect(searchComponent.listComponent).toEqual(listComponent);
 
-        element.remove();
-    });
+    element.remove();
+  });
 });
 
 describe('SearchComponent should not work', function() {
-    it('throw invalid first argument instance of HTMLElement', function() {
-        var firstArgumentFail = function() { 
-            new SearchComponent(1);
-        };
+  it('throw invalid first argument instance of HTMLElement', function() {
+    var firstArgumentFail = function() {
+      new SearchComponent(1);
+    };
 
-        expect(firstArgumentFail).toThrow('First argument must be an instance of HTMLElement');
-    });
+    expect(firstArgumentFail).toThrow(
+      'First argument must be an instance of HTMLElement'
+    );
+  });
 
-    it('throw invalid second argument instance of ListComponent', function() {
-        var div, element, secondArgumentFail;
+  it('throw invalid second argument instance of ListComponent', function() {
+    var div, element, secondArgumentFail;
 
-        div = document.createElement('div');
+    div = document.createElement('div');
 
-        div.append(document.createElement('form'));
-        
-        document.body.append(div);
+    div.append(document.createElement('form'));
 
-        element = document.body.querySelector('div');
+    document.body.append(div);
 
-        secondArgumentFail = function() { 
-            new SearchComponent(element, 1);
-        };
+    element = document.body.querySelector('div');
 
-        expect(secondArgumentFail).toThrow('Second argument must be an instance of ListComponent');
+    secondArgumentFail = function() {
+      new SearchComponent(element, 1);
+    };
 
-        element.remove();
-    });
+    expect(secondArgumentFail).toThrow(
+      'Second argument must be an instance of ListComponent'
+    );
 
-    it('throw not found form element', function() {
-        var element, formNotFoud;
+    element.remove();
+  });
 
-        spyOn(window, 'ListComponent');
+  it('throw not found form element', function() {
+    var element, formNotFoud;
 
-        document.body.append(document.createElement('div'));
+    spyOn(window, 'ListComponent');
 
-        element = document.body.querySelector('div');
+    document.body.append(document.createElement('div'));
 
-        formNotFoud = function() { 
-            new SearchComponent(element, new ListComponent());
-        };
+    element = document.body.querySelector('div');
 
-        expect(formNotFoud).toThrow('Form element was not found');
+    formNotFoud = function() {
+      new SearchComponent(element, new ListComponent());
+    };
 
-        element.remove();
-    });
+    expect(formNotFoud).toThrow('Form element was not found');
+
+    element.remove();
+  });
 });

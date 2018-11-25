@@ -12,5 +12,4 @@
   console.log(viewComponent);
   console.log(listComponent);
   console.log(searchComponent);
-  
 })();
