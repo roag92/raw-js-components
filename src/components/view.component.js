@@ -13,7 +13,6 @@ ViewComponent = (function() {
   }
 
   _view.prototype.setItem = function(item) {
-    // TODO: Validate a valid item
     this.item = item;
 
     if (this.item) {
@@ -22,8 +21,25 @@ ViewComponent = (function() {
   };
 
   function _render() {
-    // TODO: Render item
-    // console.log('render');
+    var currentEmbed = this.element.querySelector('iframe');
+
+    if (currentEmbed) {
+      currentEmbed.remove();
+    }
+
+    this.element.append(_createEmbed(this.item.id.videoId));
+  }
+
+  function _createEmbed(videoId) {
+    var iframe;
+
+    iframe = document.createElement('iframe');
+
+    iframe.width = YouTubeApi.config.embed.width;
+    iframe.height = YouTubeApi.config.embed.height;
+    iframe.src = YouTubeApi.config.embed.url + videoId;
+
+    return iframe;
   }
 
   return _view;

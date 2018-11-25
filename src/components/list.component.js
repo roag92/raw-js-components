@@ -18,15 +18,16 @@ ListComponent = (function() {
   }
 
   _list.prototype.setData = function(data) {
-    // TODO: Parse model
     this.data = data;
 
     _render.bind(this)();
   };
 
   function _render() {
-    var _self = this;
-    var currentListContent = this.element.querySelector('ul');
+    var _self, currentListContent, listContent;
+
+    _self = this;
+    currentListContent = this.element.querySelector('ul');
 
     if (currentListContent) {
       currentListContent.remove();
@@ -36,21 +37,35 @@ ListComponent = (function() {
       return;
     }
 
-    var listContent = document.createElement('ul');
+    listContent = document.createElement('ul');
 
-    this.data.forEach(function(value) {
-      var item = document.createElement('li');
-
-      item.innerText = 'My value ' + value;
-
-      item.addEventListener('click', function() {
-        _self.viewComponent.setItem(value);
-      });
-
-      listContent.append(item);
+    this.data.forEach(function(item) {
+      listContent.append(
+        _createItem(item, function() {
+          _self.viewComponent.setItem(item);
+        })
+      );
     });
 
     this.element.append(listContent);
+  }
+
+  function _createItem(item, onclick) {
+    var p, img, li;
+
+    p = document.createElement('p');
+    img = document.createElement('img');
+    li = document.createElement('li');
+
+    p.innerText = item.snippet.title;
+    img.src = item.snippet.thumbnails.medium.url;
+
+    li.append(p);
+    li.append(img);
+
+    li.onclick = onclick;
+
+    return li;
   }
 
   return _list;

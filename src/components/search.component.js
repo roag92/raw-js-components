@@ -26,11 +26,11 @@ SearchComponent = (function() {
   function _onSubmit(event) {
     event.preventDefault();
 
-    // TODO: Do request
+    var _self = this;
 
-    var x = Math.floor(Math.random() * Math.floor(199));
-
-    this.listComponent.setData(x % 2 ? [1, 2, 3] : []);
+    YouTubeApi.search(term.value, function(data) {
+      _self.listComponent.setData(data.items);
+    });
   }
 
   return _search;
