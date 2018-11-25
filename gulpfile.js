@@ -4,7 +4,6 @@ var uglify = require('gulp-uglify');
 var sourcemaps = require('gulp-sourcemaps');
 var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
-var rename = require('gulp-rename');
 var cleanCSS = require('gulp-clean-css');
 var del = require('del');
 
@@ -16,28 +15,26 @@ var config = {
     dest: 'public/assets/js',
     del: ['public/assets/js/**/*.*', '!public/assets/js/.gitkeep'],
     concat: 'scripts.min.js',
-    sourcemaps: './'
+    sourcemaps: './',
   },
   styles: {
     source: ['./styles/**/*.scss'],
     dest: 'public/assets/css',
     del: ['public/assets/css/**/*.*', '!public/assets/js/.gitkeep'],
-    rename: {
-      suffix: '.min'
-    },
+    concat: 'styles.min.css',
     autoprefixer: {
       browsers: ['last 2 versions'],
-      cascade: false
+      cascade: false,
     },
-    sourcemaps: './'
-  }
+    sourcemaps: './',
+  },
 };
 
-gulp.task('clean-scripts', function(){
+gulp.task('clean-scripts', function() {
   return del(config.scripts.del);
 });
 
-gulp.task('clean-styles', function(){
+gulp.task('clean-styles', function() {
   return del(config.styles.del);
 });
 
@@ -57,9 +54,9 @@ gulp.task('styles', ['clean-styles'], function() {
     .src(config.styles.source)
     .pipe(sass())
     .pipe(sourcemaps.init())
+    .pipe(concat(config.styles.concat))
     .pipe(autoprefixer(config.styles.autoprefixer))
     .pipe(cleanCSS())
-    .pipe(rename(config.styles.rename))
     .pipe(sourcemaps.write(config.styles.sourcemaps))
     .pipe(gulp.dest(config.styles.dest))
     .pipe(browserSync.stream());
