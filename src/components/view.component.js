@@ -14,16 +14,16 @@ ViewComponent = (function(){
     
     _view.prototype.setItem = function(item) {
         // TODO: Validate a valid item
-        console.log(item);
+        this.item = item;
         
-        if (item) {
+        if (this.item) {
             _render.bind(this)();
         }
     };
 
     function _render() {
         // TODO: Render item
-        console.log('render');
+        // console.log('render');
     }
 
     return _view;
