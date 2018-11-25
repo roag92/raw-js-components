@@ -1,6 +1,6 @@
 # raw-js-components
 
-This project shows the basic concepts of components using an application based in pure javascript.
+This project shows the basic concepts of components using an application based in pure javascript. The application is a PoC of searching videos using YouTube API.
 
 ## Requirements
 
@@ -16,11 +16,9 @@ yarn install
 yarn start
 ```
 
-You can navigate inside the project which is an PoC of searching videos using YouTube API.
-
 ## Usage
 
-To format the js files inside the `src` folder.
+To format files
 
 ```bash
 yarn format:fix
@@ -31,5 +29,3 @@ To run the tests
 ```bash
 yarn test
 ```
-
-> Note: Inside the project you should find a presentation.
