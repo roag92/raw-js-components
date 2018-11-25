@@ -11,7 +11,7 @@ describe('ViewComponent should work', function() {
     element.remove();
   });
 
-  it('instance ViewComponent', function() {
+  it('should instance ViewComponent', function() {
     var viewComponent = new ViewComponent(element);
 
     expect(viewComponent.element).toEqual(element);
@@ -20,7 +20,7 @@ describe('ViewComponent should work', function() {
     element.remove();
   });
 
-  it('call setItem method', function() {
+  it('should call setItem method', function() {
     var viewComponent = new ViewComponent(element);
 
     expectedData = {
@@ -44,7 +44,7 @@ describe('ViewComponent should work', function() {
 });
 
 describe('ViewComponent should not work', function() {
-  it('can throw invalid first argument instance of HTMLElement', function() {
+  it('should throw invalid first argument instance of HTMLElement', function() {
     var firstArgumentFail = function() {
       new ViewComponent(1);
     };

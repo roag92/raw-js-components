@@ -13,7 +13,7 @@ describe('ListComponent should work', function() {
     element.remove();
   });
 
-  it('instance ListComponent', function() {
+  it('should instance ListComponent', function() {
     var listComponent, viewComponent;
 
     viewComponent = new ViewComponent();
@@ -26,7 +26,7 @@ describe('ListComponent should work', function() {
     element.remove();
   });
 
-  it('call setData method', function() {
+  it('should call setData method', function() {
     var listComponent, expectedData;
 
     listComponent = new ListComponent(element, new ViewComponent());
@@ -54,7 +54,7 @@ describe('ListComponent should work', function() {
 });
 
 describe('ListComponent should not work', function() {
-  it('throw invalid first argument instance of HTMLElement', function() {
+  it('should throw invalid first argument instance of HTMLElement', function() {
     var firstArgumentFail = function() {
       new ListComponent(1);
     };
@@ -64,7 +64,7 @@ describe('ListComponent should not work', function() {
     );
   });
 
-  it('throw invalid second argument instance of ViewComponent', function() {
+  it('should throw invalid second argument instance of ViewComponent', function() {
     var element, secondArgumentFail;
 
     document.body.append(document.createElement('div'));

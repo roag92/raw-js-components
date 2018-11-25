@@ -1,5 +1,5 @@
 describe('SearchComponent should work', function() {
-  it('instance SearchComponent', function() {
+  it('should instance SearchComponent', function() {
     var div, element, listComponent, searchComponent;
 
     spyOn(window, 'ListComponent');
@@ -24,7 +24,7 @@ describe('SearchComponent should work', function() {
 });
 
 describe('SearchComponent should not work', function() {
-  it('throw invalid first argument instance of HTMLElement', function() {
+  it('should throw invalid first argument instance of HTMLElement', function() {
     var firstArgumentFail = function() {
       new SearchComponent(1);
     };
@@ -34,7 +34,7 @@ describe('SearchComponent should not work', function() {
     );
   });
 
-  it('throw invalid second argument instance of ListComponent', function() {
+  it('should throw invalid second argument instance of ListComponent', function() {
     var div, element, secondArgumentFail;
 
     div = document.createElement('div');
@@ -56,7 +56,7 @@ describe('SearchComponent should not work', function() {
     element.remove();
   });
 
-  it('throw not found form element', function() {
+  it('should throw not found form element', function() {
     var element, formNotFoud;
 
     spyOn(window, 'ListComponent');
