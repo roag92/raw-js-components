@@ -21,6 +21,8 @@ ListComponent = (function() {
     this.data = data;
 
     _render.bind(this)();
+
+    this.viewComponent.reset();
   };
 
   function _render() {

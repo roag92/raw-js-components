@@ -13,22 +13,20 @@ ViewComponent = (function() {
   }
 
   _view.prototype.setItem = function(item) {
+    this.reset();
+
     this.item = item;
 
-    if (this.item) {
-      _render.bind(this)();
-    }
+    this.element.append(_createEmbed(this.item.id.videoId));
   };
 
-  function _render() {
+  _view.prototype.reset = function() {
     var currentEmbed = this.element.querySelector('iframe');
 
     if (currentEmbed) {
       currentEmbed.remove();
     }
-
-    this.element.append(_createEmbed(this.item.id.videoId));
-  }
+  };
 
   function _createEmbed(videoId) {
     var iframe;

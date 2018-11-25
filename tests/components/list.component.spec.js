@@ -27,9 +27,13 @@ describe('ListComponent should work', function() {
   });
 
   it('should call setData method', function() {
-    var listComponent, expectedData;
+    var viewComponent, listComponent, expectedData;
 
-    listComponent = new ListComponent(element, new ViewComponent());
+    viewComponent = new ViewComponent();
+
+    viewComponent.reset = sinon.spy();
+
+    listComponent = new ListComponent(element, viewComponent);
 
     expectedData = [
       {
@@ -50,6 +54,8 @@ describe('ListComponent should work', function() {
     listComponent.setData(expectedData);
 
     expect(listComponent.data).toEqual(expectedData);
+
+    sinon.assert.calledOnce(viewComponent.reset);
   });
 });
 

@@ -41,6 +41,16 @@ describe('ViewComponent should work', function() {
 
     expect(viewComponent.item).toEqual(expectedData);
   });
+
+  it('should call reset method', function() {
+    var viewComponent = new ViewComponent(element);
+
+    spyOn(viewComponent.element, 'querySelector');
+
+    viewComponent.reset();
+
+    expect(viewComponent.element.querySelector).toHaveBeenCalled();
+  });
 });
 
 describe('ViewComponent should not work', function() {
