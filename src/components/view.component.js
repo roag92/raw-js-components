@@ -10,6 +10,9 @@ ViewComponent = (function() {
 
     this.element = element;
     this.item = null;
+
+    EventService.subscribe('onSelectedItem', _onSelectedItem.bind(this));
+    EventService.subscribe('onResetView', _onResetView.bind(this));
   }
 
   _view.prototype.setItem = function(item) {
@@ -27,6 +30,14 @@ ViewComponent = (function() {
       currentEmbed.remove();
     }
   };
+
+  function _onSelectedItem(event) {
+    this.setItem(event.data);
+  }
+
+  function _onResetView() {
+    this.reset();
+  }
 
   function _createEmbed(videoId) {
     var iframe;

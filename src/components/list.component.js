@@ -3,18 +3,15 @@ var ListComponent;
 ListComponent = (function() {
   'use stricts';
 
-  function _list(element, viewComponent) {
+  function _list(element) {
     if (!(element instanceof HTMLElement)) {
       throw 'First argument must be an instance of HTMLElement';
     }
 
-    if (!(viewComponent instanceof ViewComponent)) {
-      throw 'Second argument must be an instance of ViewComponent';
-    }
-
     this.element = element;
-    this.viewComponent = viewComponent;
     this.data = [];
+
+    EventService.subscribe('onLoadData', _onLoadData.bind(this));
   }
 
   _list.prototype.setData = function(data) {
@@ -22,13 +19,16 @@ ListComponent = (function() {
 
     _render.bind(this)();
 
-    this.viewComponent.reset();
+    EventService.emit('onResetView');
   };
 
-  function _render() {
-    var _self, currentListContent, listContent;
+  function _onLoadData(event) {
+    this.setData(event.data);
+  }
 
-    _self = this;
+  function _render() {
+    var currentListContent, listContent;
+
     currentListContent = this.element.querySelector('ul');
 
     if (currentListContent) {
@@ -42,17 +42,13 @@ ListComponent = (function() {
     listContent = document.createElement('ul');
 
     this.data.forEach(function(item) {
-      listContent.append(
-        _createItem(item, function() {
-          _self.viewComponent.setItem(item);
-        })
-      );
+      listContent.append(_createItem(item));
     });
 
     this.element.append(listContent);
   }
 
-  function _createItem(item, onclick) {
+  function _createItem(item) {
     var p, img, li;
 
     p = document.createElement('p');
@@ -65,7 +61,9 @@ ListComponent = (function() {
     li.append(p);
     li.append(img);
 
-    li.onclick = onclick;
+    li.onclick = function() {
+      EventService.emit('onSelectedItem', { data: item });
+    };
 
     return li;
   }
