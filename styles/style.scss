@@ -1,0 +1,22 @@
+@import './components/search.component';
+@import './components/list.component';
+@import './components/view.component';
+
+body {
+  font-size: 14px;
+  max-width: 800px;
+  margin: auto;
+}
+
+.to-left {
+  float: left;
+}
+
+.to-right {
+  float: right;
+}
+
+hr {
+  width: 100%;
+  margin-top: 5%;
+}
