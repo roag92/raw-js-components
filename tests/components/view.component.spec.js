@@ -23,9 +23,21 @@ describe('ViewComponent should work', function() {
   it('call setItem method', function() {
     var viewComponent = new ViewComponent(element);
 
-    expectedData = 1;
+    expectedData = {
+      snippet: {
+        title: 'Title',
+        thumbnails: {
+          medium: {
+            url: 'URL',
+          },
+        },
+      },
+      id: {
+        videoId: 'videoId',
+      },
+    };
 
-    viewComponent.setItem(1);
+    viewComponent.setItem(expectedData);
 
     expect(viewComponent.item).toEqual(expectedData);
   });

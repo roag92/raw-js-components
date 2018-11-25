@@ -31,7 +31,21 @@ describe('ListComponent should work', function() {
 
     listComponent = new ListComponent(element, new ViewComponent());
 
-    expectedData = [1, 2, 3];
+    expectedData = [
+      {
+        snippet: {
+          title: 'Title',
+          thumbnails: {
+            medium: {
+              url: 'URL',
+            },
+          },
+        },
+        id: {
+          videoId: 'videoId',
+        },
+      },
+    ];
 
     listComponent.setData(expectedData);
 
