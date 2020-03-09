@@ -4,30 +4,60 @@ This project shows the basic concepts of components using an application based i
 
 ## Requirements
 
-- node
-- yarn
+- Docker
+- docker-compose
+- CircleCi Cli
+
+------------
 
 ## Installation
 
 After to clone this project:
 
 ```bash
-yarn install
-# Don't forget the content of .env file
 cp .env.dist .env
-yarn start
 ```
 
-## Usage
+> Note: Don't forget put the right content onto .env file
 
-To format files
+------------
+
+### Sart Server
+
+Development with live reload
 
 ```bash
-yarn format:fix
+docker-compose -f docker-compose.dev.yml up
 ```
 
-To run the tests
+Production mode
 
 ```bash
-yarn test
+docker-compose -f docker-compose.prod.yml up
+```
+
+> Note: add the --build parameter to build as the first time
+
+------------
+
+### Test Pipeline
+
+```bash
+circleci local execute --job build 
+```
+
+------------
+
+### Usage
+
+Format files
+
+```bash
+docker-compose -f docker-compose.cli.yml run --rm yarn format:fix
+```
+
+Run tests
+
+```bash
+docker-compose -f docker-compose.cli.yml run --rm yarn test
 ```

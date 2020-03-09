@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A practical example of components",
   "scripts": {
-    "format:fix": "prettier --config ./.pretierrc --write \"{src/**/*.js,tests/**/*.js,public/index.html,styles/**/*.scss}\"",
+    "format:fix": "prettier --config ./.pretierrc --write \"{src/**/*.js,tests/**/*.js,public/index.html,styles/**/*.scss,./**/*.yml}\"",
     "start:dev": "yarn gulp",
     "start": "yarn gulp build && http-server",
     "test": "yarn karma start"
