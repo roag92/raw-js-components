@@ -10,7 +10,11 @@ var cleanCSS = require('gulp-clean-css');
 var del = require('del');
 var replace = require('gulp-replace');
 
-var browserSync = require('browser-sync').create();
+var browserSync = null;
+
+if (process.env.NODE_ENV !== 'production') {
+  browserSync = require('browser-sync').create();
+}
 
 var config = {
   scripts: {
@@ -33,6 +37,10 @@ var config = {
   },
 };
 
+gulp.task('is-prod', function() {
+  isProd = true;
+});
+
 gulp.task('clean-scripts', function() {
   return del(config.scripts.del);
 });
@@ -42,19 +50,24 @@ gulp.task('clean-styles', function() {
 });
 
 gulp.task('scripts', ['clean-scripts'], function() {
-  return gulp
+  var scriptsPipeLine = gulp
     .src(config.scripts.source)
     .pipe(replace(/YOUTUBE_API_KEY/g, process.env.YOUTUBE_API_KEY))
     .pipe(sourcemaps.init())
     .pipe(concat(config.scripts.concat))
     .pipe(uglify())
     .pipe(sourcemaps.write(config.scripts.sourcemaps))
-    .pipe(gulp.dest(config.scripts.dest))
-    .pipe(browserSync.stream());
+    .pipe(gulp.dest(config.scripts.dest));
+
+  if (process.env.NODE_ENV !== 'production') {
+    scriptsPipeLine = scriptsPipeLine.pipe(browserSync.stream());
+  }
+
+  return scriptsPipeLine;
 });
 
 gulp.task('styles', ['clean-styles'], function() {
-  return gulp
+  var stylesPipeLine = gulp
     .src(config.styles.source)
     .pipe(sass())
     .pipe(sourcemaps.init())
@@ -62,11 +75,16 @@ gulp.task('styles', ['clean-styles'], function() {
     .pipe(autoprefixer(config.styles.autoprefixer))
     .pipe(cleanCSS())
     .pipe(sourcemaps.write(config.styles.sourcemaps))
-    .pipe(gulp.dest(config.styles.dest))
-    .pipe(browserSync.stream());
+    .pipe(gulp.dest(config.styles.dest));
+
+  if (process.env.NODE_ENV !== 'production') {
+    stylesPipeLine = stylesPipeLine.pipe(browserSync.stream());
+  }
+
+  return stylesPipeLine;
 });
 
-gulp.task('serve', ['scripts', 'styles'], function() {
+gulp.task('serve', ['build'], function() {
   browserSync.init({
     server: 'public',
   });
@@ -76,5 +94,7 @@ gulp.task('serve', ['scripts', 'styles'], function() {
 
   gulp.watch('public/*.html').on('change', browserSync.reload);
 });
+
+gulp.task('build', ['scripts', 'styles']);
 
 gulp.task('default', ['serve']);

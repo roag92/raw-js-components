@@ -4,7 +4,8 @@
   "description": "A practical example of components",
   "scripts": {
     "format:fix": "prettier --config ./.pretierrc --write \"{src/**/*.js,tests/**/*.js,public/index.html,styles/**/*.scss}\"",
-    "start": "yarn gulp",
+    "start:dev": "yarn gulp",
+    "start": "yarn gulp build && http-server",
     "test": "yarn karma start"
   },
   "husky": {
@@ -26,8 +27,7 @@
   ],
   "author": "Ricardo Roman",
   "license": "MIT",
-  "devDependencies": {
-    "browser-sync": "^2.26.3",
+  "dependencies": {
     "del": "^3.0.0",
     "dotenv": "^8.2.0",
     "gulp": "^3.9.1",
@@ -38,15 +38,21 @@
     "gulp-sass": "^4.0.2",
     "gulp-sourcemaps": "^2.6.4",
     "gulp-uglify": "^3.0.1",
+    "http-server": "^0.12.1"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.26.3",
     "husky": "^1.1.4",
+    "is-docker": "^2.0.0",
     "jasmine": "^3.3.0",
     "jshint": "^2.9.6",
     "karma": "^3.1.1",
-    "karma-chrome-launcher": "^2.2.0",
+    "karma-chrome-launcher": "^3.1.0",
     "karma-jasmine": "^2.0.1",
     "karma-sinon": "^1.0.5",
     "lint-staged": "^8.0.5",
     "prettier": "^1.15.2",
+    "puppeteer": "^2.1.1",
     "sinon": "^7.1.1"
   }
 }
