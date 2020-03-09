@@ -13,6 +13,8 @@ After to clone this project:
 
 ```bash
 yarn install
+# Don't forget the content of .env file
+cp .env.dist .env
 yarn start
 ```
 
