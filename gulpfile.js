@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
@@ -6,6 +8,7 @@ var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
 var cleanCSS = require('gulp-clean-css');
 var del = require('del');
+var replace = require('gulp-replace');
 
 var browserSync = require('browser-sync').create();
 
@@ -41,6 +44,7 @@ gulp.task('clean-styles', function() {
 gulp.task('scripts', ['clean-scripts'], function() {
   return gulp
     .src(config.scripts.source)
+    .pipe(replace(/YOUTUBE_API_KEY/g, process.env.YOUTUBE_API_KEY))
     .pipe(sourcemaps.init())
     .pipe(concat(config.scripts.concat))
     .pipe(uglify())

@@ -4,7 +4,7 @@ YouTubeApi = (function() {
   function _youTube() {
     this.config = {
       api: {
-        key: 'ADD_API_KEY',
+        key: 'YOUTUBE_API_KEY',
         url: 'https://www.googleapis.com/youtube/v3',
       },
       embed: {
