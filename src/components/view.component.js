@@ -21,6 +21,9 @@ ViewComponent = (function() {
     this.item = item;
 
     this.element.append(_createEmbed(this.item.id.videoId));
+
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
   };
 
   _view.prototype.reset = function() {
