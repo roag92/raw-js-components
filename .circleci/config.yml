@@ -1,0 +1,29 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: 'circleci/buildpack-deps:stretch'
+    environment:
+      - IMAGE_NAME: 'roag92/raw-js-components'
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Set Up Docker Commands
+          command: |
+            if [[ $CIRCLE_SHELL_ENV == *"localbuild"* ]]; then
+                echo "export docker='sudo docker'" >> $BASH_ENV
+                echo "export compose='sudo docker-compose'" >> $BASH_ENV
+            else
+                echo "export compose='docker-compose'" >> $BASH_ENV
+                echo "export docker='docker'" >> $BASH_ENV
+            fi
+      - run:
+          name: Build Images
+          command: |
+            $docker-compose -f docker-compose.dev.yml build
+            $docker-compose -f docker-compose.yml build
+      - run:
+          name: Run Test
+          command: |
+            $docker-compose -f docker-compose.ci.yml run --rm test
