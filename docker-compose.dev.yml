@@ -1,0 +1,12 @@
+version: '3.7'
+services:
+  app:
+    build:
+      context: .
+      target: development
+    image: 'roag92/raw-js-components:development'
+    ports:
+      - '3000:3000'
+      - '3001:3001'
+    volumes:
+      - .:/application

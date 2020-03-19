@@ -1,0 +1,9 @@
+version: '3.7'
+services:
+  app:
+    build: .
+    image: 'roag92/raw-js-components:latest'
+    ports:
+      - '8080:8080'
+    volumes:
+      - .:/application

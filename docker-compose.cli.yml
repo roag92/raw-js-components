@@ -1,0 +1,12 @@
+version: '3.7'
+services:
+  yarn:
+    image: 'roag92/raw-js-components:development'
+    init: true
+    entrypoint: yarn
+    volumes:
+      - .:/application
+      - yarn_cache:/application/node_modules
+
+volumes:
+  yarn_cache:
