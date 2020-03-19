@@ -3,4 +3,4 @@ services:
   test:
     image: 'roag92/raw-js-components:development'
     init: true
-    command: yarn test
+    command: test
