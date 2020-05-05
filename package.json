@@ -54,5 +54,12 @@
     "prettier": "^1.15.2",
     "puppeteer": "^2.1.1",
     "sinon": "^7.1.1"
+  },
+  "resolutions": {
+      "**/**/lodash": "^4.17.12",
+      "**/**/minimatch": "^3.0.2",
+      "**/**/braces": "^2.3.1",
+      "**/**/minimist": "^0.2.1",
+      "**/**/yargs-parser": "^13.1.2"
   }
 }
